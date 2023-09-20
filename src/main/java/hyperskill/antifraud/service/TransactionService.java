@@ -41,7 +41,7 @@ public class TransactionService {
     public ResponseEntity<TransactionResponseDTO> processTransaction(
             TransactionEntity transaction) throws JsonProcessingException {
         Long amount = transaction.getAmount();
-        if (Objects.isNull(amount)) {
+        if (amount == null) {
             return ResponseEntity.badRequest().build();
         }
         Optional<TransactionBoundaryEntity> transactionBoundaryResponse = transactionBoundaryRepository.findByNumber(transaction.getNumber());
