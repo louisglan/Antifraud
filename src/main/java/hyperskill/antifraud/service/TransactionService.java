@@ -13,7 +13,6 @@ import hyperskill.antifraud.repository.TransactionRepository;
 import hyperskill.antifraud.service.enums.TransactionRejectionReason;
 import hyperskill.antifraud.service.enums.TransactionResult;
 import hyperskill.antifraud.service.utils.Validator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -39,18 +38,19 @@ public class TransactionService {
     }
 
     public ResponseEntity<TransactionResponseDTO> processTransaction(
-            TransactionEntity transaction) throws JsonProcessingException {
+            TransactionEntity transaction) {
         Long amount = transaction.getAmount();
         if (amount == null) {
             return ResponseEntity.badRequest().build();
         }
         Optional<TransactionBoundaryEntity> transactionBoundaryResponse = transactionBoundaryRepository.findByNumber(transaction.getNumber());
-        TransactionBoundaryEntity transactionBoundary = transactionBoundaryResponse.orElseGet(() -> new TransactionBoundaryEntity(transaction.getNumber(), 200L, 1500L));
+        TransactionBoundaryEntity transactionBoundary = transactionBoundaryResponse.orElseGet(
+                () -> new TransactionBoundaryEntity(transaction.getNumber(), 200L, 1500L));
         long maxAllowed = transactionBoundary.getMaxAllowed();
         long maxManual = transactionBoundary.getMaxManual();
         String transactionResult;
         List<String> transactionRejectionReasons = new ArrayList<>();
-        if (amount <= 0 || Validator.isIpInvalid(transaction.getIp()) || transaction.getNumber().length() != 16) {
+        if (amount <= 0 || Validator.isIpInvalid(transaction.getIp()) || Validator.isCardNumberInvalid(transaction.getNumber())) {
             return ResponseEntity.badRequest().build();
         } else if (amount <= maxAllowed) {
             transactionResult = TransactionResult.ALLOWED.getResult();
