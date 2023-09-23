@@ -3,7 +3,7 @@ package hyperskill.antifraud.service.utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class IpAddressTest {
+public class IpAddressValidatorTest {
     @Test
     public void testIpAddressLength() {
         Assertions.assertFalse(Validator.isIpInvalid("000.000.000.000"));

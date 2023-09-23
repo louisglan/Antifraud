@@ -1,4 +1,4 @@
-package hyperskill.antifraud.service.utils;
+package hyperskill.antifraud.repository;
 
 import hyperskill.antifraud.model.database.TransactionEntity;
 import hyperskill.antifraud.repository.TransactionRepository;
