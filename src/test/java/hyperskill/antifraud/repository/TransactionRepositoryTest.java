@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
+@Transactional
 @SpringBootTest
 public class TransactionRepositoryTest {
     @Autowired
@@ -25,7 +25,6 @@ public class TransactionRepositoryTest {
     LocalDateTime endTimestamp = LocalDateTime.of(2022, 6, 6, 11, 0, 30);
 
     @Test
-    @Transactional
     public void testMultipleTransactionsSameRegionWithinStartAndEndTimeReturnedGroupedByRegion() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -40,7 +39,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsDifferentRegionsWithinStartAndEndTimeReturnedGroupedByRegion() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -55,7 +53,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testOneTransactionWithinStartAndEndTimeReturnedGroupedByRegion() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -66,7 +63,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testOneTransactionOutsideStartAndEndTimeNotReturnedGroupedByRegion() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 9, 30, 30));
@@ -76,7 +72,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsWithinStartAndEndTimeReturnedGroupedByRegion() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 9, 30, 30));
@@ -107,7 +102,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsWithinStartAndEndTimeReturnedGroupedByRegionMultipleCardNumbers() {
         createTransaction(1L, "1.1.1.1", "2000000000000006", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -138,7 +132,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsSameIpWithinStartAndEndTimeReturnedGroupedByIp() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -153,7 +146,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsDifferentIpsWithinStartAndEndTimeReturnedGroupedByIp() {
         createTransaction(1L, "1.1.1.0", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -168,7 +160,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testOneTransactionWithinStartAndEndTimeReturnedGroupedByIp() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
@@ -179,7 +170,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testOneTransactionOutsideStartAndEndTimeNotReturnedGroupedByIp() {
         createTransaction(1L, "1.1.1.1", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 9, 30, 30));
@@ -189,7 +179,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsWithinStartAndEndTimeReturnedGroupedByIp() {
         createTransaction(1L, "1.1.1.0", "1000000000000008", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 9, 30, 30));
@@ -220,7 +209,6 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void testMultipleTransactionsWithinStartAndEndTimeReturnedGroupedByIpMultipleCardNumbers() {
         createTransaction(1L, "1.1.1.0", "2000000000000006", Region.EAP.getRegion(), LocalDateTime.of(
                 2022, 6, 6, 10, 30, 30));
